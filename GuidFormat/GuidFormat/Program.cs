@@ -6,26 +6,24 @@ namespace GuidFormat
     {
         static void Main(string[] args)
         {
-            string[] correspondingFormat = { "N", "D", "B", "P", "X" };
+            char[] correspondingFormat = { 'N', 'n', 'D', 'd', 'B', 'b', 'P', 'p', 'X', 'x' };
 
             Console.WriteLine("Input guid's corresponding format (N, D, B, P or X) than press Enter");
-            var input = Console.ReadLine().ToUpper();
 
-            if (input != null && input.Length == 1 && Array.Exists(correspondingFormat, el => el == input))
+            while (true)
             {
-                Console.WriteLine($"New GUID: {GenerateGuid(input)}");
-            }
-            else
-            {
-                Console.WriteLine("Invalid format");
-            }
+                var keyChar = (char)Console.Read();
 
-            Console.ReadKey();
+                if (Array.Exists(correspondingFormat, el => el == keyChar))
+                {
+                    Console.WriteLine($"{GenerateGuid(keyChar)}");
+                }
+            }
         }
 
-        private static string GenerateGuid(string format)
+        private static string GenerateGuid(char format)
         {
-            return Guid.NewGuid().ToString(format);
+            return Guid.NewGuid().ToString(format.ToString());
         }
 
     }
